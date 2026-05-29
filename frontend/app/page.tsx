@@ -1,6 +1,7 @@
 'use client'
 
 import { CardCanvas } from '@/components/card/CardCanvas'
+import { DownloadCardButton } from '@/components/card/DownloadCardButton'
 import { CustomizerPanel } from '@/components/creator/CustomizerPanel'
 import { ShareModal } from '@/components/share/ShareModal'
 import { useCardCreator } from '@/hooks/useCardCreator'
@@ -46,6 +47,10 @@ export default function HomePage() {
             style={{ width: 'min(100%, calc(100vw - 2rem))' }}
           >
             <CardCanvas {...previewCard} mode="creator" />
+          </div>
+
+          <div className="mt-4 flex justify-center lg:justify-start">
+            <DownloadCardButton card={previewCard} className="w-full sm:w-auto" />
           </div>
         </div>
 

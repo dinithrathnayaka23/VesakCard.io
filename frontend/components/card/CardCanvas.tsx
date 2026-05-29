@@ -43,7 +43,7 @@ export function CardCanvas({
         aria-hidden="true"
       />
 
-      <SymbolLayer accentColor={accentColor} animationSet={animationSet} />
+      <SymbolLayer accentColor={accentColor} animationSet={animationSet} theme={theme} />
       {showLanterns ? <LanternLayer accentColor={accentColor} /> : null}
       {showPetals ? <PetalLayer /> : null}
       {showFireflies ? <FireflyLayer accentColor={accentColor} /> : null}

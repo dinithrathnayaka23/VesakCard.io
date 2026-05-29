@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { CardCanvas } from '@/components/card/CardCanvas'
+import { DownloadCardButton } from '@/components/card/DownloadCardButton'
 import { SinhalaButton } from '@/components/ui/SinhalaButton'
 import type { CardData } from '@/lib/types'
 
@@ -64,10 +65,11 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
           />
         </label>
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <SinhalaButton type="button" onClick={copyShareUrl} className="w-full">
             {copied ? 'Copy වුණා' : 'Link එක copy කරන්න'}
           </SinhalaButton>
+          <DownloadCardButton card={card} className="w-full" />
           <a
             href={`https://wa.me/?text=${encodedUrl}`}
             target="_blank"
