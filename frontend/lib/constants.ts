@@ -37,4 +37,25 @@ export const BORDER_NAMES: Record<CardData['borderStyle'], string> = {
   simple_gold: 'සරල රන්'
 }
 
+export const ANIMATION_NAMES: Record<CardData['animationSet'], string> = {
+  lanterns_petals: 'කූඩු හා මල්',
+  fireflies: 'කණාමැදිරි',
+  lotus_bloom: 'නෙළුම් මල්',
+  full: 'සම්පූර්ණ'
+}
+
 export const ACCENT_COLORS = ['#D4AF37', '#F9A8D4', '#FEF9EE', '#8FD8B8', '#F59E0B']
+
+export const DEFAULT_CARD: CardData = {
+  slug: 'DEMO2026',
+  senderName: 'නිමාෂා',
+  recipientName: 'ආදරණීය පවුලේ සැමට',
+  wishText:
+    'ත්‍රිවිධ රත්නයේ ආශීර්වාදයෙන් ඔබගේ ජීවිතයට කරුණාව, සාමය සහ ප්‍රඥාව පිරී ඉතිරේවා. ධර්මයේ ආලෝකය ඔබේ හදවත සන්සුන් කර සතුට පතුරවාවා.',
+  theme: 'lotus_night',
+  borderStyle: 'traditional_1',
+  accentColor: '#D4AF37',
+  animationSet: 'lanterns_petals',
+  viewCount: 0,
+  createdAt: new Date().toISOString()
+}
