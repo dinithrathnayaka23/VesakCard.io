@@ -6,18 +6,43 @@ import { ColorPicker } from '@/components/creator/ColorPicker'
 import { ThemeSelector } from '@/components/creator/ThemeSelector'
 import { WishInput } from '@/components/creator/WishInput'
 import { SinhalaButton } from '@/components/ui/SinhalaButton'
-import type { CardData } from '@/lib/types'
-
-type EditableCardData = Omit<CardData, 'slug' | 'viewCount' | 'createdAt'>
+import type { CardFormData, WishTone } from '@/lib/types'
 
 interface CustomizerPanelProps {
-  card: EditableCardData
-  onChange: <K extends keyof EditableCardData>(key: K, value: EditableCardData[K]) => void
+  card: CardFormData
+  canCreate: boolean
+  createError: string | null
+  isCreating: boolean
+  wishTone: WishTone
+  isGeneratingWish: boolean
+  wishError: string | null
+  onChange: <K extends keyof CardFormData>(key: K, value: CardFormData[K]) => void
+  onSubmit: () => void
+  onWishToneChange: (value: WishTone) => void
+  onGenerateWish: () => void
 }
 
-export function CustomizerPanel({ card, onChange }: CustomizerPanelProps) {
+export function CustomizerPanel({
+  card,
+  canCreate,
+  createError,
+  isCreating,
+  wishTone,
+  isGeneratingWish,
+  wishError,
+  onChange,
+  onSubmit,
+  onWishToneChange,
+  onGenerateWish
+}: CustomizerPanelProps) {
   return (
-    <form className="space-y-5" onSubmit={(event) => event.preventDefault()}>
+    <form
+      className="space-y-5"
+      onSubmit={(event) => {
+        event.preventDefault()
+        onSubmit()
+      }}
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="space-y-2">
           <span className="text-sm font-semibold text-[#31241a]">ඔබේ නම</span>
@@ -40,15 +65,23 @@ export function CustomizerPanel({ card, onChange }: CustomizerPanelProps) {
         </label>
       </div>
 
-      <WishInput value={card.wishText} onChange={(value) => onChange('wishText', value)} />
+      <WishInput
+        value={card.wishText}
+        tone={wishTone}
+        isGenerating={isGeneratingWish}
+        error={wishError}
+        onChange={(value) => onChange('wishText', value)}
+        onToneChange={onWishToneChange}
+        onGenerate={onGenerateWish}
+      />
       <ThemeSelector value={card.theme} onChange={(value) => onChange('theme', value)} />
       <BorderSelector value={card.borderStyle} onChange={(value) => onChange('borderStyle', value)} />
       <ColorPicker value={card.accentColor} onChange={(value) => onChange('accentColor', value)} />
       <AnimationSelector value={card.animationSet} onChange={(value) => onChange('animationSet', value)} />
 
       <div className="flex flex-col gap-3 pt-1 sm:flex-row">
-        <SinhalaButton type="button" disabled className="w-full sm:w-auto">
-          කාඩ්පත සාදන්න
+        <SinhalaButton type="submit" disabled={!canCreate} className="w-full sm:w-auto">
+          {isCreating ? 'සාදමින්...' : 'කාඩ්පත සාදන්න'}
         </SinhalaButton>
         <SinhalaButton
           type="button"
@@ -64,6 +97,7 @@ export function CustomizerPanel({ card, onChange }: CustomizerPanelProps) {
           පෙරනිමි
         </SinhalaButton>
       </div>
+      {createError ? <p className="text-sm font-semibold text-[#a33b2d]">{createError}</p> : null}
     </form>
   )
 }

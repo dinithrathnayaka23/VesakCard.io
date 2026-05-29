@@ -2,10 +2,30 @@
 
 import { CardCanvas } from '@/components/card/CardCanvas'
 import { CustomizerPanel } from '@/components/creator/CustomizerPanel'
+import { ShareModal } from '@/components/share/ShareModal'
 import { useCardCreator } from '@/hooks/useCardCreator'
+import { useWishGenerator } from '@/hooks/useWishGenerator'
 
 export default function HomePage() {
-  const { card, previewCard, updateCard } = useCardCreator()
+  const {
+    card,
+    canCreate,
+    createError,
+    createdCard,
+    isCreating,
+    previewCard,
+    updateCard,
+    submitCard,
+    closeShareModal
+  } = useCardCreator()
+  const { tone, setTone, isGenerating, wishError, requestWish } = useWishGenerator()
+
+  async function handleGenerateWish() {
+    const wish = await requestWish(card.recipientName)
+    if (wish) {
+      updateCard('wishText', wish.sinhala)
+    }
+  }
 
   return (
     <main className="min-h-screen max-w-full overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
@@ -26,9 +46,32 @@ export default function HomePage() {
         </div>
 
         <div className="min-w-0 max-w-full overflow-hidden rounded-lg border border-[#d8cbb7] bg-[#fffaf1]/82 p-4 shadow-[0_20px_60px_rgba(54,42,27,0.12)] backdrop-blur sm:p-5 lg:p-6">
-          <CustomizerPanel card={card} onChange={updateCard} />
+          <CustomizerPanel
+            card={card}
+            canCreate={canCreate}
+            createError={createError}
+            isCreating={isCreating}
+            wishTone={tone}
+            isGeneratingWish={isGenerating}
+            wishError={wishError}
+            onChange={updateCard}
+            onSubmit={submitCard}
+            onWishToneChange={setTone}
+            onGenerateWish={handleGenerateWish}
+          />
         </div>
       </section>
+
+      {createdCard ? (
+        <ShareModal
+          card={{
+            ...previewCard,
+            slug: createdCard.slug
+          }}
+          shareUrl={createdCard.shareUrl}
+          onClose={closeShareModal}
+        />
+      ) : null}
     </main>
   )
 }

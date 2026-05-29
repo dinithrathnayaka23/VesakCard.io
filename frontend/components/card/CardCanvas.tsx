@@ -10,6 +10,7 @@ import type { CardData } from '@/lib/types'
 
 type CardCanvasProps = CardData & {
   mode: 'creator' | 'viewer'
+  animated?: boolean
 }
 
 export function CardCanvas({
@@ -20,12 +21,13 @@ export function CardCanvas({
   borderStyle,
   accentColor,
   animationSet,
-  mode
+  mode,
+  animated = true
 }: CardCanvasProps) {
   const themeConfig = THEMES[theme]
-  const showLanterns = animationSet === 'lanterns_petals' || animationSet === 'full'
-  const showPetals = animationSet === 'lanterns_petals' || animationSet === 'lotus_bloom' || animationSet === 'full'
-  const showFireflies = animationSet === 'fireflies' || animationSet === 'full'
+  const showLanterns = animated && (animationSet === 'lanterns_petals' || animationSet === 'full')
+  const showPetals = animated && (animationSet === 'lanterns_petals' || animationSet === 'lotus_bloom' || animationSet === 'full')
+  const showFireflies = animated && (animationSet === 'fireflies' || animationSet === 'full')
 
   return (
     <div

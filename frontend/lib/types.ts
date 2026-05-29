@@ -20,3 +20,7 @@ export interface WishResponse {
   sinhala: string
   english: string
 }
+
+export type CardFormData = Omit<CardData, 'slug' | 'viewCount' | 'createdAt'>
+
+export type WishTone = 'formal' | 'friendly' | 'devotional'
