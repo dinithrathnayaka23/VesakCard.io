@@ -36,16 +36,16 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
       <div className="max-h-[calc(100vh-3rem)] w-full max-w-2xl overflow-y-auto rounded-lg border border-[#d8cbb7] bg-[#fffaf1] p-4 shadow-[0_24px_90px_rgba(20,14,8,0.38)] sm:p-5">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-[#176d5b]">කාඩ්පත සූදානම්</p>
-            <h2 className="mt-1 text-2xl font-bold leading-tight text-[#251a12]">බෙදාගන්න</h2>
+            <p className="text-sm font-semibold text-[#176d5b]">Card එක ready</p>
+            <h2 className="mt-1 text-2xl font-bold leading-tight text-[#251a12]">Share කරන්න</h2>
           </div>
           <button
             type="button"
             onClick={onClose}
             className="grid h-10 w-10 place-items-center rounded-lg border border-[#d8cbb7] bg-white/80 text-xl leading-none text-[#5e4d3f] transition hover:bg-white"
-            aria-label="වසන්න"
+            aria-label="Close"
           >
-            ×
+            x
           </button>
         </div>
 
@@ -54,7 +54,7 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
         </div>
 
         <label className="space-y-2">
-          <span className="text-sm font-semibold text-[#31241a]">සබැඳිය</span>
+          <span className="text-sm font-semibold text-[#31241a]">Share link එක</span>
           <input
             ref={inputRef}
             readOnly
@@ -66,7 +66,7 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
 
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           <SinhalaButton type="button" onClick={copyShareUrl} className="w-full">
-            {copied ? 'පිටපත් කළා ✓' : 'සබැඳිය පිටපත් කරන්න'}
+            {copied ? 'Copy වුණා' : 'Link එක copy කරන්න'}
           </SinhalaButton>
           <a
             href={`https://wa.me/?text=${encodedUrl}`}
@@ -74,7 +74,7 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
             rel="noreferrer"
             className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#176d5b]/20 bg-white px-4 py-2 text-center text-sm font-semibold text-[#176d5b] transition hover:border-[#176d5b]/45"
           >
-            WhatsApp හරහා බෙදාගන්න
+            WhatsApp share
           </a>
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
@@ -82,7 +82,7 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
             rel="noreferrer"
             className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#315b9c]/20 bg-white px-4 py-2 text-center text-sm font-semibold text-[#315b9c] transition hover:border-[#315b9c]/45"
           >
-            Facebook හරහා බෙදාගන්න
+            Facebook share
           </a>
         </div>
       </div>

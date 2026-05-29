@@ -9,39 +9,39 @@ export const THEMES: Record<
   }
 > = {
   lotus_night: {
-    name: 'රාත්‍රී නෙළුම',
+    name: 'රාත්‍රී Lotus',
     image: '/themes/lotus_night.webp',
     ogColor: '#151437'
   },
   temple_dawn: {
-    name: 'පන්සල් උදාව',
+    name: 'පන්සල් Dawn',
     image: '/themes/temple_dawn.webp',
     ogColor: '#995b36'
   },
   lantern_sky: {
-    name: 'කූඩු අහස',
+    name: 'Lantern අහස',
     image: '/themes/lantern_sky.webp',
     ogColor: '#233b68'
   },
   forest_stream: {
-    name: 'වන දිය',
+    name: 'වන දිය පාර',
     image: '/themes/forest_stream.webp',
     ogColor: '#205244'
   }
 }
 
 export const BORDER_NAMES: Record<CardData['borderStyle'], string> = {
-  traditional_1: 'සාම්ප්‍රදායික',
-  lotus_border: 'නෙළුම් රටාව',
-  dharma_border: 'ධර්ම රටාව',
+  traditional_1: 'පාරම්පරික',
+  lotus_border: 'Lotus',
+  dharma_border: 'ධර්ම චක්‍ර',
   simple_gold: 'සරල රන්'
 }
 
 export const ANIMATION_NAMES: Record<CardData['animationSet'], string> = {
-  lanterns_petals: 'කූඩු හා මල්',
-  fireflies: 'කණාමැදිරි',
-  lotus_bloom: 'නෙළුම් මල්',
-  full: 'සම්පූර්ණ'
+  lanterns_petals: 'කූඩු + මල් පෙති',
+  fireflies: 'Fireflies',
+  lotus_bloom: 'Lotus bloom',
+  full: 'Full Vesak'
 }
 
 export const ACCENT_COLORS = ['#D4AF37', '#F9A8D4', '#FEF9EE', '#8FD8B8', '#F59E0B']
@@ -49,9 +49,9 @@ export const ACCENT_COLORS = ['#D4AF37', '#F9A8D4', '#FEF9EE', '#8FD8B8', '#F59E
 export const DEFAULT_CARD: CardData = {
   slug: 'DEMO2026',
   senderName: 'නිමාෂා',
-  recipientName: 'ආදරණීය පවුලේ සැමට',
+  recipientName: 'පවුලේ සැමට',
   wishText:
-    'ත්‍රිවිධ රත්නයේ ආශීර්වාදයෙන් ඔබගේ ජීවිතයට කරුණාව, සාමය සහ ප්‍රඥාව පිරී ඉතිරේවා. ධර්මයේ ආලෝකය ඔබේ හදවත සන්සුන් කර සතුට පතුරවාවා.',
+    'සුභ වෙසක් වේවා! තෙරුවන් සරණයි. මේ පින්බර වෙසක් දිනයේ ඔබටත් ඔබේ පවුලේ සැමටත් කරුණාව, සාමය සහ සතුට පිරී ඉතිරේවා. ධර්මයේ ආලෝකයෙන් සිත් සැනසේවා.',
   theme: 'lotus_night',
   borderStyle: 'traditional_1',
   accentColor: '#D4AF37',

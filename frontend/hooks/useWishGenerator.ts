@@ -16,7 +16,7 @@ export function useWishGenerator() {
     try {
       return await generateWish(recipientName.trim(), tone)
     } catch {
-      setWishError('දෝෂයක් ඇති විය. නැවත උත්සාහ කරන්න.')
+      setWishError('Wish එක generate කරන්න බැරි වුණා. පසුව try කරන්න.')
       return null
     } finally {
       setIsGenerating(false)

@@ -10,7 +10,7 @@ interface ColorPickerProps {
 export function ColorPicker({ value, onChange }: ColorPickerProps) {
   return (
     <fieldset className="space-y-3 border-b border-[#d9cbb8] pb-5">
-      <legend className="text-sm font-semibold text-[#31241a]">අලංකාර වර්ණය</legend>
+      <legend className="text-sm font-semibold text-[#31241a]">Accent color එක</legend>
       <div className="flex flex-wrap items-center gap-3">
         {ACCENT_COLORS.map((color) => {
           const selected = value.toLowerCase() === color.toLowerCase()
@@ -30,7 +30,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         })}
 
         <input
-          aria-label="අලංකාර වර්ණය"
+          aria-label="Accent color"
           type="color"
           value={value}
           onChange={(event) => onChange(event.target.value)}

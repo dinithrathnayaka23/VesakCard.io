@@ -55,6 +55,11 @@ app:
   slug:
     length: 8
     max-retries: 3
+  ai:
+    provider-order: ${AI_PROVIDER_ORDER:gemini,anthropic,local}
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-2.5-flash}
   anthropic:
     api-key: ${ANTHROPIC_API_KEY:}
-    model: claude-sonnet-4-20250514
+    model: ${ANTHROPIC_MODEL:claude-sonnet-4-20250514}

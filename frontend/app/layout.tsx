@@ -18,8 +18,8 @@ const notoSerifSinhala = Noto_Serif_Sinhala({
 })
 
 export const metadata: Metadata = {
-  title: 'වෙසක් කාඩ්පත් | Vesak Cards',
-  description: 'ශ්‍රී ලංකාවට සුදුසු සජීවී වෙසක් සුභ පැතුම් කාඩ්පත් සාදන්න.',
+  title: 'Vesak Cards | සුභ වෙසක් Wishes',
+  description: 'සිංහල Vesak wishes, lantern animations, lotus visuals, and shareable digital cards for Sri Lanka.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000')
 }
 

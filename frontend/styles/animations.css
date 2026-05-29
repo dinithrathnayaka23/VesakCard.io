@@ -67,6 +67,39 @@
   }
 }
 
+@keyframes lotusPulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.54;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.03);
+    opacity: 0.76;
+  }
+}
+
+@keyframes wheelSlowSpin {
+  0% {
+    transform: translate(955px, 118px) rotate(0deg);
+  }
+  100% {
+    transform: translate(955px, 118px) rotate(360deg);
+  }
+}
+
+.vesak-lotus-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lotusPulse 8s ease-in-out infinite;
+}
+
+.vesak-wheel-spin {
+  transform-box: fill-box;
+  transform-origin: 78px 78px;
+  animation: wheelSlowSpin 42s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .motion-safe-layer,
   .motion-safe-layer * {

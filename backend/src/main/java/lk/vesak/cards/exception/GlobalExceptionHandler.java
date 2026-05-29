@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CardNotFoundException.class)
     public ResponseEntity<CardNotFoundError> handleCardNotFound(CardNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new CardNotFoundError("කාඩ්පත හමු නොවීය", exception.getSlug()));
+                .body(new CardNotFoundError("Card එක හමු නොවීය", exception.getSlug()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -48,19 +48,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SlugGenerationException.class)
     public ResponseEntity<ErrorResponse> handleSlugGeneration() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse("කාඩ්පත සෑදීම අසාර්ථක විය"));
+                .body(new ErrorResponse("Card එක සාදීම අසාර්ථක විය"));
     }
 
     @ExceptionHandler(RateLimitException.class)
     public ResponseEntity<ErrorResponse> handleRateLimit() {
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                .body(new ErrorResponse("ඉල්ලීම් සීමාව ඉක්මවා ඇත. පසුව උත්සාහ කරන්න."));
+                .body(new ErrorResponse("ඉල්ලීම් සීමාව ඉක්මවා ඇත. පසුව try කරන්න."));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse("සේවාදායක දෝෂයකි"));
+                .body(new ErrorResponse("Server error එකක් ඇති විය"));
     }
 
     private ValidationFieldError toValidationFieldError(FieldError fieldError) {

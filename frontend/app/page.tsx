@@ -33,19 +33,26 @@ export default function HomePage() {
         <div className="min-w-0 max-w-full lg:sticky lg:top-6">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
             <div className="min-w-0 max-w-full">
-              <p className="text-sm font-semibold text-[#176d5b]">වෙසක් කාඩ්පත්</p>
+              <p className="text-sm font-semibold text-[#176d5b]">Vesak Cards</p>
               <h1 className="mt-1 max-w-full break-words text-[1.7rem] font-bold leading-tight text-[#251a12] sm:text-3xl">
-                ඔබේ වෙසක් කාඩ්පත සාදන්න
+                <span className="block sm:inline">ඔබේ Vesak Card එක</span>{' '}
+                <span className="block sm:inline">සාදන්න</span>
               </h1>
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-[calc(100vw-2rem)] lg:max-w-none">
+          <div
+            className="mx-auto min-w-0 overflow-hidden lg:max-w-none"
+            style={{ width: 'min(100%, calc(100vw - 2rem))' }}
+          >
             <CardCanvas {...previewCard} mode="creator" />
           </div>
         </div>
 
-        <div className="min-w-0 max-w-full overflow-hidden rounded-lg border border-[#d8cbb7] bg-[#fffaf1]/82 p-4 shadow-[0_20px_60px_rgba(54,42,27,0.12)] backdrop-blur sm:p-5 lg:p-6">
+        <div
+          className="min-w-0 max-w-full overflow-hidden rounded-lg border border-[#d8cbb7] bg-[#fffaf1]/82 p-4 shadow-[0_20px_60px_rgba(54,42,27,0.12)] backdrop-blur sm:p-5 lg:p-6"
+          style={{ width: 'min(100%, calc(100vw - 2rem))' }}
+        >
           <CustomizerPanel
             card={card}
             canCreate={canCreate}

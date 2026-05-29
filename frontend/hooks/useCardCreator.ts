@@ -41,7 +41,7 @@ export function useCardCreator() {
 
   async function submitCard() {
     if (!canCreate) {
-      setCreateError('ඇතුළත් කළ දත්ත වලංගු නොවේ')
+      setCreateError('නම සහ wish message එක හරියට දාන්න.')
       return
     }
 
@@ -57,7 +57,7 @@ export function useCardCreator() {
       })
       setCreatedCard(response)
     } catch (error) {
-      setCreateError(error instanceof Error ? error.message : 'දෝෂයක් ඇති විය. නැවත උත්සාහ කරන්න.')
+      setCreateError(error instanceof Error ? error.message : 'Card එක සාදන්න බැරි වුණා. පසුව try කරන්න.')
     } finally {
       setIsCreating(false)
     }

@@ -24,7 +24,7 @@ export async function GET(_request: Request, { params }: OgRouteContext) {
     const recipientLine = card.recipientName
       ? `ආදරණීය ${card.recipientName} වෙත`
       : 'වෙසක් ප්‍රාර්ථනාවක්'
-    const senderLine = `${card.senderName} වෙතින්`
+    const senderLine = `${card.senderName}ගෙන්`
     const siteLabel = siteWatermark()
 
     const image = new ImageResponse(
@@ -46,6 +46,56 @@ export async function GET(_request: Request, { params }: OgRouteContext) {
             textAlign: 'center'
           }}
         >
+          <div
+            style={{
+              position: 'absolute',
+              left: 70,
+              bottom: 54,
+              display: 'flex',
+              width: 170,
+              height: 118,
+              opacity: 0.5
+            }}
+          >
+            <svg width="170" height="118" viewBox="0 0 170 118" fill="none">
+              <ellipse cx="85" cy="94" rx="72" ry="16" fill={card.accentColor} fillOpacity="0.26" />
+              <path d="M85 94C54 70 46 45 85 18C124 45 116 70 85 94Z" fill={card.accentColor} fillOpacity="0.56" />
+              <path d="M85 98C68 78 76 54 85 34C94 54 102 78 85 98Z" fill="#fff7df" fillOpacity="0.52" />
+              <path d="M85 96C52 84 29 63 22 34C52 41 76 62 85 96Z" fill={card.accentColor} fillOpacity="0.42" />
+              <path d="M85 96C118 84 141 63 148 34C118 41 94 62 85 96Z" fill={card.accentColor} fillOpacity="0.42" />
+            </svg>
+          </div>
+
+          <div
+            style={{
+              position: 'absolute',
+              right: 88,
+              top: 68,
+              display: 'flex',
+              width: 126,
+              height: 126,
+              opacity: 0.32
+            }}
+          >
+            <svg width="126" height="126" viewBox="0 0 126 126" fill="none">
+              <circle cx="63" cy="63" r="48" stroke={card.accentColor} strokeWidth="8" />
+              <circle cx="63" cy="63" r="10" fill={card.accentColor} />
+              {Array.from({ length: 8 }).map((_, index) => (
+                <line
+                  key={index}
+                  x1="63"
+                  y1="63"
+                  x2="63"
+                  y2="18"
+                  stroke={card.accentColor}
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  transform={`rotate(${index * 45} 63 63)`}
+                />
+              ))}
+            </svg>
+          </div>
+
           <div
             style={{
               color: card.accentColor,
@@ -119,7 +169,7 @@ export async function GET(_request: Request, { params }: OgRouteContext) {
     return image
   } catch (error) {
     if (isCardNotFoundError(error)) {
-      return Response.json({ error: 'කාඩ්පත හමු නොවීය' }, { status: 404 })
+      return Response.json({ error: 'Card එක හමු නොවීය' }, { status: 404 })
     }
 
     throw error

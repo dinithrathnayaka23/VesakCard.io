@@ -13,7 +13,7 @@ type CardPageProps = {
 export async function generateMetadata({ params }: CardPageProps): Promise<Metadata> {
   try {
     const card = await getCardForServer(params.slug)
-    const title = `${card.senderName}ගේ වෙසක් ප්‍රාර්ථනාව`
+    const title = `${card.senderName}ගෙන් Vesak ප්‍රාර්ථනාවක්`
     const description = card.wishText.slice(0, 150)
     const imageUrl = `/api/og/${params.slug}`
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: CardPageProps): Promise<Metad
             url: imageUrl,
             width: 1200,
             height: 630,
-            alt: 'වෙසක් කාඩ්පත'
+            alt: 'Vesak Card'
           }
         ],
         type: 'website'
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: CardPageProps): Promise<Metad
   } catch (error) {
     if (isCardNotFoundError(error)) {
       return {
-        title: 'කාඩ්පත හමු නොවීය | Vesak Cards',
-        description: 'මෙම කාඩ්පත ඉවත් කර ඇත හෝ වලංගු නොවේ'
+        title: 'Card එක හමු නොවීය | Vesak Cards',
+        description: 'මෙම share link එක වලංගු නැහැ'
       }
     }
 
@@ -67,8 +67,8 @@ export default async function CardPage({ params }: CardPageProps) {
           className="inline-flex min-h-12 min-w-0 w-[calc(100vw-2rem)] max-w-full items-center justify-center rounded-full border border-[#D4AF37]/50 bg-[#D4AF37] px-5 py-3 text-center text-[0.78rem] font-bold leading-6 text-[#16120a] shadow-[0_14px_34px_rgba(212,175,55,0.22)] transition hover:-translate-y-0.5 hover:bg-[#edc94b] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#071413] sm:w-auto sm:max-w-none sm:text-sm"
         >
           <span className="block min-w-0 max-w-full whitespace-normal break-words">
-            <span className="block sm:inline">ඔබේ වෙසක් කාඩ්පත</span>{' '}
-            <span className="block sm:inline">නිර්මාණය කරන්න →</span>
+            <span className="block sm:inline">මගේ Vesak Card එකක්</span>{' '}
+            <span className="block sm:inline">සාදන්න -&gt;</span>
           </span>
         </Link>
       </section>

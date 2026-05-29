@@ -4,6 +4,7 @@ import { CardBorder } from '@/components/card/CardBorder'
 import { FireflyLayer } from '@/components/card/FireflyLayer'
 import { LanternLayer } from '@/components/card/LanternLayer'
 import { PetalLayer } from '@/components/card/PetalLayer'
+import { SymbolLayer } from '@/components/card/SymbolLayer'
 import { TextPanel } from '@/components/card/TextPanel'
 import { THEMES } from '@/lib/constants'
 import type { CardData } from '@/lib/types'
@@ -31,8 +32,8 @@ export function CardCanvas({
 
   return (
     <div
-      className="vesak-card-surface relative aspect-[3/2] w-full max-w-full overflow-hidden"
-      aria-label={mode === 'viewer' ? 'වෙසක් කාඩ්පත' : 'වෙසක් කාඩ්පත් පෙරදසුන'}
+      className="vesak-card-surface relative aspect-[3/2] w-full min-w-0 max-w-full overflow-hidden"
+      aria-label={mode === 'viewer' ? 'Vesak card' : 'Vesak card preview'}
     >
       <img src={themeConfig.image} alt="" loading="lazy" aria-hidden="true" className="hidden" />
 
@@ -42,6 +43,7 @@ export function CardCanvas({
         aria-hidden="true"
       />
 
+      <SymbolLayer accentColor={accentColor} animationSet={animationSet} />
       {showLanterns ? <LanternLayer accentColor={accentColor} /> : null}
       {showPetals ? <PetalLayer /> : null}
       {showFireflies ? <FireflyLayer accentColor={accentColor} /> : null}

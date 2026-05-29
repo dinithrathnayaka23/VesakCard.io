@@ -50,16 +50,18 @@ export function CustomizerPanel({
             value={card.senderName}
             onChange={(event) => onChange('senderName', event.target.value)}
             maxLength={100}
+            placeholder="නිමාෂා"
             className="h-12 w-full rounded-lg border border-[#d8cbb7] bg-white/86 px-4 text-sm text-[#2c2118] outline-none transition placeholder:text-[#9a8978] focus:border-[#176d5b] focus:ring-4 focus:ring-[#176d5b]/12"
           />
         </label>
 
         <label className="space-y-2">
-          <span className="text-sm font-semibold text-[#31241a]">ලබන්නාගේ නම (අවශ්‍ය නොවේ)</span>
+          <span className="text-sm font-semibold text-[#31241a]">ලබන්නාගේ නම (optional)</span>
           <input
             value={card.recipientName}
             onChange={(event) => onChange('recipientName', event.target.value)}
             maxLength={100}
+            placeholder="අම්මා, තාත්තා, යාළුවෝ..."
             className="h-12 w-full rounded-lg border border-[#d8cbb7] bg-white/86 px-4 text-sm text-[#2c2118] outline-none transition placeholder:text-[#9a8978] focus:border-[#176d5b] focus:ring-4 focus:ring-[#176d5b]/12"
           />
         </label>
@@ -81,7 +83,7 @@ export function CustomizerPanel({
 
       <div className="flex flex-col gap-3 pt-1 sm:flex-row">
         <SinhalaButton type="submit" disabled={!canCreate} className="w-full sm:w-auto">
-          {isCreating ? 'සාදමින්...' : 'කාඩ්පත සාදන්න'}
+          {isCreating ? 'සාදමින්...' : 'Card එක සාදන්න'}
         </SinhalaButton>
         <SinhalaButton
           type="button"
@@ -94,7 +96,7 @@ export function CustomizerPanel({
             onChange('animationSet', 'lanterns_petals')
           }}
         >
-          පෙරනිමි
+          Reset
         </SinhalaButton>
       </div>
       {createError ? <p className="text-sm font-semibold text-[#a33b2d]">{createError}</p> : null}

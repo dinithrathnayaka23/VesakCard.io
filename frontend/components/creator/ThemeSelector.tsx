@@ -11,7 +11,7 @@ interface ThemeSelectorProps {
 export function ThemeSelector({ value, onChange }: ThemeSelectorProps) {
   return (
     <fieldset className="space-y-3 border-b border-[#d9cbb8] pb-5">
-      <legend className="text-sm font-semibold text-[#31241a]">තේමාව</legend>
+      <legend className="text-sm font-semibold text-[#31241a]">Theme එක</legend>
       <div className="grid grid-cols-1 gap-3 xs:grid-cols-2 sm:grid-cols-2">
         {Object.entries(THEMES).map(([themeKey, theme]) => {
           const key = themeKey as CardData['theme']
