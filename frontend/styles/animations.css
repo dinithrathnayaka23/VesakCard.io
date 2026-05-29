@@ -1,0 +1,76 @@
+@keyframes lanternFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120%) translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes petalDrift {
+  0% {
+    transform: translate3d(0, -15%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  88% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(-72px, 115%, 0) rotate(260deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fireflyPulse {
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.2;
+  }
+  45% {
+    transform: scale(1.25);
+    opacity: 0.9;
+  }
+}
+
+@keyframes borderGlow {
+  0%,
+  100% {
+    opacity: 0.68;
+    filter: drop-shadow(0 0 4px rgba(255, 236, 179, 0.35));
+  }
+  50% {
+    opacity: 0.98;
+    filter: drop-shadow(0 0 12px rgba(255, 236, 179, 0.6));
+  }
+}
+
+@keyframes cardEntrance {
+  0% {
+    transform: translateY(18px) scale(0.98);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-layer,
+  .motion-safe-layer * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

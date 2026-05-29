@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --page-bg: #f7f2e6;
+  --ink: #251a12;
+  --muted: #6d5b4a;
+  --lotus: #cf4d7c;
+  --leaf: #166f5b;
+  --gold: #d4af37;
+  --sky: #416c9a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  font-family: var(--font-noto-sans-sinhala), system-ui, sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(207, 77, 124, 0.18), transparent 24rem),
+    linear-gradient(135deg, #f8f1df 0%, #eef6ef 45%, #e8f0f6 100%);
+  color: var(--ink);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.vesak-card-surface {
+  animation: cardEntrance 700ms ease-out both;
+  background-color: #101010;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(32, 24, 17, 0.3);
+  isolation: isolate;
+}
+
+.vesak-card-bg {
+  background-position: center;
+  background-size: cover;
+}
+
+.vesak-card-bg::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    radial-gradient(circle at 50% 45%, transparent 0%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0.5) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.24));
+}
+
+.text-balance {
+  text-wrap: balance;
+}
