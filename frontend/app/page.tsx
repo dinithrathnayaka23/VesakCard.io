@@ -49,8 +49,9 @@ export default function HomePage() {
             <CardCanvas {...previewCard} mode="creator" />
           </div>
 
-          <div className="mt-4 flex justify-center lg:justify-start">
+          <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
             <DownloadCardButton card={previewCard} className="w-full sm:w-auto" />
+            <DownloadCardButton card={previewCard} format="gif" className="w-full sm:w-auto" />
           </div>
         </div>
 

@@ -2,14 +2,16 @@
 
 import { useState } from 'react'
 import { SinhalaButton } from '@/components/ui/SinhalaButton'
-import { downloadCardPng } from '@/lib/card-download'
+import { downloadCardGif, downloadCardPng } from '@/lib/card-download'
 import type { CardData } from '@/lib/types'
 
 type DownloadStatus = 'idle' | 'downloading' | 'error'
+type DownloadFormat = 'png' | 'gif'
 
 interface DownloadCardButtonProps {
   card: CardData
   className?: string
+  format?: DownloadFormat
   label?: string
   variant?: 'primary' | 'secondary' | 'ghost'
 }
@@ -17,7 +19,8 @@ interface DownloadCardButtonProps {
 export function DownloadCardButton({
   card,
   className = '',
-  label = 'PNG Download කරන්න',
+  format = 'png',
+  label,
   variant = 'secondary'
 }: DownloadCardButtonProps) {
   const [status, setStatus] = useState<DownloadStatus>('idle')
@@ -25,7 +28,11 @@ export function DownloadCardButton({
   async function handleDownload() {
     setStatus('downloading')
     try {
-      await downloadCardPng(card)
+      if (format === 'gif') {
+        await downloadCardGif(card)
+      } else {
+        await downloadCardPng(card)
+      }
       setStatus('idle')
     } catch {
       setStatus('error')
@@ -35,14 +42,14 @@ export function DownloadCardButton({
 
   function getLabel() {
     if (status === 'downloading') {
-      return 'Download වෙමින්...'
+      return format === 'gif' ? 'GIF සකස් වෙමින්...' : 'Download වෙමින්...'
     }
 
     if (status === 'error') {
       return 'Download අසාර්ථක වුණා'
     }
 
-    return label
+    return label ?? (format === 'gif' ? 'Animated GIF Download කරන්න' : 'PNG Download කරන්න')
   }
 
   const isDownloading = status === 'downloading'

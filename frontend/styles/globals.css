@@ -43,6 +43,8 @@ select {
   animation: cardEntrance 700ms ease-out both;
   background-color: #101010;
   border-radius: 18px;
+  container-name: vesak-card;
+  container-type: inline-size;
   box-shadow: 0 24px 80px rgba(32, 24, 17, 0.3);
   isolation: isolate;
 }
@@ -63,4 +65,17 @@ select {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.vesak-card-wish {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+}
+
+@container vesak-card (max-width: 520px) {
+  .vesak-card-wish {
+    -webkit-line-clamp: 6;
+  }
 }

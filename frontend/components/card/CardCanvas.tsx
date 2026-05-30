@@ -1,6 +1,7 @@
 'use client'
 
 import { CardBorder } from '@/components/card/CardBorder'
+import { BuddhaLayer } from '@/components/card/BuddhaLayer'
 import { FireflyLayer } from '@/components/card/FireflyLayer'
 import { LanternLayer } from '@/components/card/LanternLayer'
 import { PetalLayer } from '@/components/card/PetalLayer'
@@ -43,12 +44,13 @@ export function CardCanvas({
         aria-hidden="true"
       />
 
-      <SymbolLayer accentColor={accentColor} animationSet={animationSet} theme={theme} />
+      <SymbolLayer accentColor={accentColor} animationSet={animationSet} />
       {showLanterns ? <LanternLayer accentColor={accentColor} /> : null}
       {showPetals ? <PetalLayer /> : null}
       {showFireflies ? <FireflyLayer accentColor={accentColor} /> : null}
 
       <CardBorder accentColor={accentColor} borderStyle={borderStyle} />
+      <BuddhaLayer />
       <TextPanel
         senderName={senderName}
         recipientName={recipientName}

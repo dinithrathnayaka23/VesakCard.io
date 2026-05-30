@@ -48,7 +48,7 @@ export const ACCENT_COLORS = ['#D4AF37', '#F9A8D4', '#FEF9EE', '#8FD8B8', '#F59E
 
 export const DEFAULT_CARD: CardData = {
   slug: 'DEMO2026',
-  senderName: 'නිමාෂා',
+  senderName: 'දිනිත්',
   recipientName: 'පවුලේ සැමට',
   wishText:
     'සුභ වෙසක් වේවා! තෙරුවන් සරණයි. මේ පින්බර වෙසක් දිනයේ ඔබටත් ඔබේ පවුලේ සැමටත් කරුණාව, සාමය සහ සතුට පිරී ඉතිරේවා. ධර්මයේ ආලෝකයෙන් සිත් සැනසේවා.',

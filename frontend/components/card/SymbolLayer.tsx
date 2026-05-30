@@ -3,15 +3,10 @@ import type { CardData } from '@/lib/types'
 interface SymbolLayerProps {
   accentColor: string
   animationSet: CardData['animationSet']
-  theme: CardData['theme']
 }
 
-export function SymbolLayer({ accentColor, animationSet, theme }: SymbolLayerProps) {
+export function SymbolLayer({ accentColor, animationSet }: SymbolLayerProps) {
   const animated = animationSet === 'lotus_bloom' || animationSet === 'full'
-  const primaryBuddhaImage =
-    theme === 'lantern_sky' || animationSet === 'full'
-      ? '/symbols/lord-buddha-vesak.webp'
-      : '/symbols/lord-buddha-lotus.webp'
 
   return (
     <div className="motion-safe-layer pointer-events-none absolute inset-0 z-[5] overflow-hidden" aria-hidden="true">
@@ -20,20 +15,6 @@ export function SymbolLayer({ accentColor, animationSet, theme }: SymbolLayerPro
         style={{
           background: `radial-gradient(circle at 50% 58%, ${accentColor}24 0%, transparent 28%), radial-gradient(circle at 82% 18%, ${accentColor}20 0%, transparent 22%)`
         }}
-      />
-
-      <img
-        src={primaryBuddhaImage}
-        alt=""
-        className="absolute bottom-[2%] left-[3%] w-[28%] max-w-[210px] opacity-45 mix-blend-screen drop-shadow-[0_0_26px_rgba(212,175,55,0.38)]"
-        loading="lazy"
-      />
-
-      <img
-        src="/symbols/lord-buddha.svg"
-        alt=""
-        className="absolute bottom-[12%] right-[7%] hidden w-[16%] max-w-[118px] opacity-28 mix-blend-screen drop-shadow-[0_0_22px_rgba(212,175,55,0.28)] sm:block"
-        loading="lazy"
       />
 
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1200 800" preserveAspectRatio="none">

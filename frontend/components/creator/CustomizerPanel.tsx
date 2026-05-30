@@ -50,7 +50,7 @@ export function CustomizerPanel({
             value={card.senderName}
             onChange={(event) => onChange('senderName', event.target.value)}
             maxLength={100}
-            placeholder="නිමාෂා"
+            placeholder="දිනිත්"
             className="h-12 w-full rounded-lg border border-[#d8cbb7] bg-white/86 px-4 text-sm text-[#2c2118] outline-none transition placeholder:text-[#9a8978] focus:border-[#176d5b] focus:ring-4 focus:ring-[#176d5b]/12"
           />
         </label>

@@ -1,8 +1,13 @@
 import { THEMES } from '@/lib/constants'
+import { GifEncoder, quantizeToPalette } from '@/lib/gif-encoder'
 import type { CardData } from '@/lib/types'
 
 const CARD_WIDTH = 1200
 const CARD_HEIGHT = 800
+const GIF_WIDTH = 540
+const GIF_HEIGHT = 360
+const GIF_FRAME_COUNT = 18
+const GIF_DELAY_CENTISECONDS = 10
 
 type TextLine = {
   text: string
@@ -19,10 +24,32 @@ export async function downloadCardPng(card: CardData) {
 
   await document.fonts?.ready
   const blob = await renderCardBlob(card)
+  saveBlob(blob, `vesak-card-${safeFilename(card.slug || card.senderName)}.png`)
+}
+
+export async function downloadCardGif(card: CardData) {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  await document.fonts?.ready
+  const blob = await renderCardGifBlob(card)
+  saveBlob(blob, `vesak-card-${safeFilename(card.slug || card.senderName)}.gif`)
+}
+
+export async function createCardGifFile(card: CardData) {
+  await document.fonts?.ready
+  const blob = await renderCardGifBlob(card)
+  return new File([blob], `vesak-card-${safeFilename(card.slug || card.senderName)}.gif`, {
+    type: 'image/gif'
+  })
+}
+
+export function saveBlob(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url
-  link.download = `vesak-card-${safeFilename(card.slug || card.senderName)}.png`
+  link.download = filename
   document.body.appendChild(link)
   link.click()
   link.remove()
@@ -39,7 +66,12 @@ async function renderCardBlob(card: CardData): Promise<Blob> {
     throw new Error('Canvas is not available')
   }
 
-  await drawCard(context, card)
+  await drawCard(context, card, {
+    animated: false,
+    outputWidth: CARD_WIDTH,
+    outputHeight: CARD_HEIGHT,
+    frameProgress: 0
+  })
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
@@ -52,28 +84,73 @@ async function renderCardBlob(card: CardData): Promise<Blob> {
   })
 }
 
-async function drawCard(context: CanvasRenderingContext2D, card: CardData) {
+async function renderCardGifBlob(card: CardData): Promise<Blob> {
+  const canvas = document.createElement('canvas')
+  canvas.width = GIF_WIDTH
+  canvas.height = GIF_HEIGHT
+  const context = canvas.getContext('2d', { willReadFrequently: true })
+
+  if (!context) {
+    throw new Error('Canvas is not available')
+  }
+
+  const encoder = new GifEncoder(GIF_WIDTH, GIF_HEIGHT)
+  encoder.writeHeader()
+  encoder.setRepeat(0)
+
+  for (let frameIndex = 0; frameIndex < GIF_FRAME_COUNT; frameIndex += 1) {
+    context.clearRect(0, 0, GIF_WIDTH, GIF_HEIGHT)
+    await drawCard(context, card, {
+      animated: true,
+      outputWidth: GIF_WIDTH,
+      outputHeight: GIF_HEIGHT,
+      frameProgress: frameIndex / GIF_FRAME_COUNT
+    })
+    encoder.addFrame(
+      quantizeToPalette(context.getImageData(0, 0, GIF_WIDTH, GIF_HEIGHT)),
+      GIF_DELAY_CENTISECONDS
+    )
+
+    if (frameIndex % 4 === 0) {
+      await new Promise((resolve) => window.setTimeout(resolve, 0))
+    }
+  }
+
+  return new Blob([encoder.finish()], { type: 'image/gif' })
+}
+
+type DrawCardOptions = {
+  animated: boolean
+  frameProgress: number
+  outputWidth: number
+  outputHeight: number
+}
+
+async function drawCard(context: CanvasRenderingContext2D, card: CardData, options: DrawCardOptions) {
+  context.save()
+  context.scale(options.outputWidth / CARD_WIDTH, options.outputHeight / CARD_HEIGHT)
+
   const theme = THEMES[card.theme]
   const background = await loadImage(theme.image)
   drawCoverImage(context, background, 0, 0, CARD_WIDTH, CARD_HEIGHT)
   drawAtmosphere(context)
 
-  const buddhaImage = card.theme === 'lantern_sky' || card.animationSet === 'full'
-    ? '/symbols/lord-buddha-vesak.webp'
-    : '/symbols/lord-buddha-lotus.webp'
-  const buddha = await loadImage(buddhaImage)
+  const buddha = await loadImage('/symbols/lord-buddha-vesak.png')
 
   context.save()
-  context.globalAlpha = 0.38
-  context.globalCompositeOperation = 'screen'
-  drawContainImage(context, buddha, 46, 265, 245, 410)
+  context.globalAlpha = 0.96
+  context.shadowColor = 'rgba(255,220,135,0.48)'
+  context.shadowBlur = 24
+  drawContainImage(context, buddha, 22, 126, 310, 610)
   context.restore()
 
   drawLanternGarland(context, card.accentColor)
   drawLotusBase(context, card.accentColor)
   drawDhammaWheel(context, card.accentColor)
+  drawAnimatedEffects(context, card, options.frameProgress, options.animated)
   drawBorder(context, card.accentColor, card.borderStyle)
   drawTextPanel(context, card)
+  context.restore()
 }
 
 function drawAtmosphere(context: CanvasRenderingContext2D) {
@@ -157,7 +234,7 @@ function drawTextPanel(context: CanvasRenderingContext2D, card: CardData) {
     context.shadowColor = 'rgba(0,0,0,0.58)'
     context.shadowBlur = 8
     const x = line.align === 'right' ? panelX + panelWidth - paddingX : CARD_WIDTH / 2
-    context.fillText(line.text, x, y)
+    context.fillText(line.text, x, y, maxTextWidth)
     y += line.lineHeight
   })
   context.shadowBlur = 0
@@ -241,6 +318,107 @@ function drawDhammaWheel(context: CanvasRenderingContext2D, accentColor: string)
     context.stroke()
   }
   context.restore()
+}
+
+function drawAnimatedEffects(
+  context: CanvasRenderingContext2D,
+  card: CardData,
+  frameProgress: number,
+  animated: boolean
+) {
+  if (!animated) {
+    return
+  }
+
+  if (card.animationSet === 'lanterns_petals' || card.animationSet === 'full') {
+    drawAnimatedLanterns(context, card.accentColor, frameProgress)
+    drawAnimatedPetals(context, frameProgress)
+  }
+
+  if (card.animationSet === 'lotus_bloom') {
+    drawAnimatedPetals(context, frameProgress)
+  }
+
+  if (card.animationSet === 'fireflies' || card.animationSet === 'full') {
+    drawAnimatedFireflies(context, card.accentColor, frameProgress)
+  }
+}
+
+function drawAnimatedLanterns(context: CanvasRenderingContext2D, accentColor: string, frameProgress: number) {
+  const startX = [165, 405, 760, 1030]
+
+  startX.forEach((baseX, index) => {
+    const localProgress = (frameProgress + index * 0.21) % 1
+    const sway = Math.sin(localProgress * Math.PI * 2 + index) * 26
+    const x = baseX + sway
+    const y = 850 - localProgress * 960
+    const opacity = fadeLoopOpacity(localProgress)
+
+    context.save()
+    context.globalAlpha = opacity
+    context.shadowColor = hexToRgba(accentColor, 0.45)
+    context.shadowBlur = 22
+    context.strokeStyle = hexToRgba(accentColor, 0.72)
+    context.lineWidth = 3
+    context.beginPath()
+    context.moveTo(x, y - 42)
+    context.lineTo(x, y - 16)
+    context.stroke()
+
+    context.fillStyle = hexToRgba(accentColor, 0.72)
+    roundedRect(context, x - 26, y - 16, 52, 68, 24)
+    context.fill()
+
+    context.fillStyle = 'rgba(255, 244, 186, 0.56)'
+    drawCircle(context, x, y + 62, 13)
+    context.restore()
+  })
+}
+
+function drawAnimatedPetals(context: CanvasRenderingContext2D, frameProgress: number) {
+  const colors = ['rgba(249,168,212,0.82)', 'rgba(254,249,238,0.88)']
+
+  for (let index = 0; index < 10; index += 1) {
+    const localProgress = (frameProgress + index * 0.097) % 1
+    const x = 80 + ((index * 137) % 1040) - localProgress * 130 + Math.sin(localProgress * Math.PI * 2) * 18
+    const y = -40 + localProgress * 900
+    const rotation = localProgress * Math.PI * 2 + index
+
+    context.save()
+    context.globalAlpha = fadeLoopOpacity(localProgress)
+    context.fillStyle = colors[index % colors.length]
+    drawPetal(context, x, y, 8 + (index % 4) * 2, 17 + (index % 3) * 3, rotation)
+    context.restore()
+  }
+}
+
+function drawAnimatedFireflies(context: CanvasRenderingContext2D, accentColor: string, frameProgress: number) {
+  for (let index = 0; index < 13; index += 1) {
+    const phase = frameProgress * Math.PI * 2 + index * 0.74
+    const x = 130 + ((index * 89) % 940) + Math.sin(phase) * 18
+    const y = 135 + ((index * 61) % 500) + Math.cos(phase * 0.8) * 24
+    const opacity = 0.22 + Math.max(0, Math.sin(phase)) * 0.54
+
+    context.save()
+    context.globalAlpha = opacity
+    context.shadowColor = hexToRgba(accentColor, 0.65)
+    context.shadowBlur = 18
+    context.fillStyle = hexToRgba(accentColor, 0.72)
+    drawCircle(context, x, y, 4 + (index % 3))
+    context.restore()
+  }
+}
+
+function fadeLoopOpacity(progress: number) {
+  if (progress < 0.12) {
+    return progress / 0.12
+  }
+
+  if (progress > 0.88) {
+    return (1 - progress) / 0.12
+  }
+
+  return 1
 }
 
 function drawCoverImage(
@@ -341,13 +519,24 @@ function hexToRgba(hex: string, alpha: number) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`
 }
 
+const imageCache = new Map<string, Promise<HTMLImageElement>>()
+
 function loadImage(src: string) {
-  return new Promise<HTMLImageElement>((resolve, reject) => {
+  const cachedImage = imageCache.get(src)
+
+  if (cachedImage) {
+    return cachedImage
+  }
+
+  const imagePromise = new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new Image()
     image.onload = () => resolve(image)
     image.onerror = () => reject(new Error(`Unable to load image: ${src}`))
     image.src = src
   })
+
+  imageCache.set(src, imagePromise)
+  return imagePromise
 }
 
 function safeFilename(value: string) {

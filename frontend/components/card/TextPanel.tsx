@@ -7,25 +7,25 @@ interface TextPanelProps {
 
 export function TextPanel({ senderName, recipientName, wishText, accentColor }: TextPanelProps) {
   return (
-    <div className="absolute left-1/2 top-1/2 z-40 max-w-[84%] -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-black/45 p-3 text-center shadow-2xl backdrop-blur-md sm:max-w-[80%] sm:p-6">
+    <div className="absolute left-1/2 top-1/2 z-40 max-h-[78%] w-[54%] max-w-[29rem] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl border border-white/18 bg-[#176d5b]/30 p-[clamp(0.75rem,3cqw,1.5rem)] text-center shadow-2xl backdrop-blur-md max-[520px]:w-[60%]">
       <div
-        className="font-serif text-[clamp(1rem,4vw,1.75rem)] font-bold leading-tight drop-shadow"
+        className="font-serif text-[clamp(1rem,6cqw,1.75rem)] font-bold leading-tight drop-shadow"
         style={{ color: accentColor, textShadow: '0 2px 14px rgba(0,0,0,0.72)' }}
       >
         සුභ වෙසක්!
       </div>
 
       {recipientName ? (
-        <p className="mt-2 text-[clamp(0.62rem,2.1vw,1rem)] font-medium leading-[1.65] text-white/90 sm:mt-3">
+        <p className="mt-[clamp(0.35rem,1.8cqw,0.75rem)] text-[clamp(0.64rem,2.45cqw,1rem)] font-medium leading-[1.5] text-white/90">
           ආදරණීය {recipientName},
         </p>
       ) : null}
 
-      <p className="mt-2 text-[clamp(0.58rem,2vw,0.95rem)] leading-[1.65] text-white/85 sm:mt-3 sm:leading-[1.8]">
+      <p className="vesak-card-wish mt-[clamp(0.35rem,1.8cqw,0.75rem)] text-[clamp(0.6rem,2.2cqw,0.95rem)] leading-[1.55] text-white/85">
         {wishText}
       </p>
 
-      <p className="mt-2 text-right text-[clamp(0.56rem,1.8vw,0.82rem)] font-semibold sm:mt-4" style={{ color: accentColor }}>
+      <p className="mt-[clamp(0.35rem,1.8cqw,0.9rem)] text-right text-[clamp(0.56rem,1.85cqw,0.82rem)] font-semibold" style={{ color: accentColor }}>
         {senderName}
       </p>
     </div>

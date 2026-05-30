@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { CardCanvas } from '@/components/card/CardCanvas'
 import { DownloadCardButton } from '@/components/card/DownloadCardButton'
+import { ShareGifButton } from '@/components/share/ShareGifButton'
 import { SinhalaButton } from '@/components/ui/SinhalaButton'
 import type { CardData } from '@/lib/types'
 
@@ -50,8 +51,8 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
           </button>
         </div>
 
-        <div className="mx-auto mb-5 max-w-md">
-          <CardCanvas {...card} animated={false} mode="creator" />
+        <div className="mx-auto mb-5 w-full max-w-xl rounded-xl bg-[#251a12]/8 p-2">
+          <CardCanvas {...card} mode="creator" />
         </div>
 
         <label className="space-y-2">
@@ -65,11 +66,13 @@ export function ShareModal({ card, shareUrl, onClose }: ShareModalProps) {
           />
         </label>
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <SinhalaButton type="button" onClick={copyShareUrl} className="w-full">
             {copied ? 'Copy වුණා' : 'Link එක copy කරන්න'}
           </SinhalaButton>
           <DownloadCardButton card={card} className="w-full" />
+          <DownloadCardButton card={card} format="gif" className="w-full" />
+          <ShareGifButton card={card} shareUrl={shareUrl} className="w-full" />
           <a
             href={`https://wa.me/?text=${encodedUrl}`}
             target="_blank"
