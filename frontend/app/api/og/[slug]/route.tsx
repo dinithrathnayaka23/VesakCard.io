@@ -8,9 +8,9 @@ export const runtime = 'nodejs'
 export const revalidate = 3600
 
 type OgRouteContext = {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 const FONT_PATH = join(process.cwd(), 'public', 'fonts', 'NotoSansSinhala.ttf')
@@ -18,7 +18,8 @@ const fontDataPromise = loadFontData()
 
 export async function GET(_request: Request, { params }: OgRouteContext) {
   try {
-    const card = await getCardForServer(params.slug)
+    const { slug } = await params
+    const card = await getCardForServer(slug)
     const fontData = await fontDataPromise
     const themeColor = THEMES[card.theme]?.ogColor ?? THEMES.lotus_night.ogColor
     const recipientLine = card.recipientName

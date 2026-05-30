@@ -1,5 +1,7 @@
 'use client'
 
+/* eslint-disable @next/next/no-img-element */
+
 import { CardBorder } from '@/components/card/CardBorder'
 import { BuddhaLayer } from '@/components/card/BuddhaLayer'
 import { FireflyLayer } from '@/components/card/FireflyLayer'

@@ -49,6 +49,8 @@ management:
       show-details: never
 
 app:
+  proxy:
+    trust-forwarded-headers: ${TRUST_FORWARDED_HEADERS:false}
   cors:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
   share-base-url: ${SHARE_BASE_URL:http://localhost:3000}

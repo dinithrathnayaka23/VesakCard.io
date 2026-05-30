@@ -6,17 +6,18 @@ import { DownloadCardButton } from '@/components/card/DownloadCardButton'
 import { getCardForServer, isCardNotFoundError } from '@/lib/server-api'
 
 type CardPageProps = {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: CardPageProps): Promise<Metadata> {
   try {
-    const card = await getCardForServer(params.slug)
+    const { slug } = await params
+    const card = await getCardForServer(slug)
     const title = `${card.senderName}ගෙන් Vesak ප්‍රාර්ථනාවක්`
     const description = card.wishText.slice(0, 150)
-    const imageUrl = `/api/og/${params.slug}`
+    const imageUrl = `/api/og/${slug}`
 
     return {
       title,
@@ -54,7 +55,8 @@ export async function generateMetadata({ params }: CardPageProps): Promise<Metad
 }
 
 export default async function CardPage({ params }: CardPageProps) {
-  const card = await getCardOrNotFound(params.slug)
+  const { slug } = await params
+  const card = await getCardOrNotFound(slug)
 
   return (
     <main className="min-h-screen bg-[#071413] text-white">

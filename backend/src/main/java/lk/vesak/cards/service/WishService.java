@@ -31,7 +31,7 @@ import java.util.Map;
 public class WishService {
 
     private static final String ANTHROPIC_MESSAGES_URL = "https://api.anthropic.com/v1/messages";
-    private static final String GEMINI_GENERATE_CONTENT_URL = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s";
+    private static final String GEMINI_GENERATE_CONTENT_URL = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent";
     private static final Duration WISH_CACHE_TTL = Duration.ofHours(24);
     private static final String SYSTEM_PROMPT = """
             You are a Sri Lankan Buddhist greeting writer fluent in natural Sinhala script and English.
@@ -117,12 +117,12 @@ public class WishService {
         }
 
         String url = GEMINI_GENERATE_CONTENT_URL.formatted(
-                UriUtils.encodePathSegment(geminiModel, StandardCharsets.UTF_8),
-                UriUtils.encodeQueryParam(geminiApiKey, StandardCharsets.UTF_8)
+                UriUtils.encodePathSegment(geminiModel, StandardCharsets.UTF_8)
         );
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-goog-api-key", geminiApiKey);
 
         Map<String, Object> body = Map.of(
                 "systemInstruction", Map.of(

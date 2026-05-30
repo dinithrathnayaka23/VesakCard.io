@@ -1,8 +1,6 @@
 import { CardNotFoundError } from '@/lib/api'
 import type { CardData } from '@/lib/types'
 
-const DEFAULT_API_URL = 'http://localhost:8080'
-
 export async function getCardForServer(slug: string): Promise<CardData> {
   const response = await fetch(`${apiBaseUrl()}/api/v1/cards/${encodeURIComponent(slug)}`, {
     headers: {
@@ -29,5 +27,11 @@ export function isCardNotFoundError(error: unknown): error is CardNotFoundError 
 }
 
 function apiBaseUrl() {
-  return (process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_URL).replace(/\/+$/, '')
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
+  if (!baseUrl) {
+    throw new Error('NEXT_PUBLIC_API_URL is not configured')
+  }
+
+  return baseUrl.replace(/\/+$/, '')
 }
