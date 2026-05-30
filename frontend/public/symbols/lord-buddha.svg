@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="520" viewBox="0 0 420 520" role="img" aria-label="Lord Buddha illustration">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="26%" r="42%">
+      <stop offset="0%" stop-color="#FFF7D6" stop-opacity="0.95"/>
+      <stop offset="48%" stop-color="#D4AF37" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2B8"/>
+      <stop offset="44%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#8F6D18"/>
+    </linearGradient>
+    <linearGradient id="robe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C45A"/>
+      <stop offset="55%" stop-color="#C88B24"/>
+      <stop offset="100%" stop-color="#7E5518"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.84 0 1 0 0 0.69 0 0 1 0 0.22 0 0 0 0.6 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="420" height="520" fill="none"/>
+  <circle cx="210" cy="146" r="134" fill="url(#halo)"/>
+  <g filter="url(#softGlow)" opacity="0.96">
+    <path d="M210 32c17 18 18 37 0 57-18-20-17-39 0-57Z" fill="url(#gold)"/>
+    <circle cx="210" cy="122" r="54" fill="url(#gold)"/>
+    <path d="M158 113c9-45 29-68 52-68s43 23 52 68c-35-17-69-17-104 0Z" fill="#FFF2B8" opacity="0.35"/>
+    <path d="M171 134c20 18 58 18 78 0" fill="none" stroke="#5A3D12" stroke-width="7" stroke-linecap="round" opacity="0.34"/>
+    <path d="M210 168c64 6 113 61 125 145H85c12-84 61-139 125-145Z" fill="url(#robe)"/>
+    <path d="M118 294c39-56 85-80 144-92-42 49-44 89-16 120H91c2-10 10-20 27-28Z" fill="#F7D680" opacity="0.42"/>
+    <path d="M291 252c25 17 42 38 50 65H201c31-13 61-35 90-65Z" fill="#7E5518" opacity="0.36"/>
+    <path d="M113 367c38-45 73-66 97-66s59 21 97 66H113Z" fill="url(#gold)"/>
+    <path d="M88 375c35-26 72-39 122-39s87 13 122 39c24 18 36 40 36 66H52c0-26 12-48 36-66Z" fill="url(#robe)"/>
+    <path d="M102 435c70-32 146-32 216 0" fill="none" stroke="#FFF0B0" stroke-width="9" stroke-linecap="round" opacity="0.38"/>
+    <ellipse cx="210" cy="457" rx="168" ry="28" fill="#D4AF37" opacity="0.32"/>
+  </g>
+  <g opacity="0.58">
+    <path d="M210 288c-53 33-91 69-113 110" fill="none" stroke="#FFF3C1" stroke-width="6" stroke-linecap="round"/>
+    <path d="M210 288c53 33 91 69 113 110" fill="none" stroke="#FFF3C1" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
