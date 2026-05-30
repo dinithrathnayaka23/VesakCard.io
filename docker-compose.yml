@@ -1,14 +1,16 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_DB: vesak_cards
-      POSTGRES_USER: vesak
-      POSTGRES_PASSWORD: vesak123
+  app:
+    build: .
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - "10000:10000"
+    environment:
+      NODE_ENV: production
+      PORT: 10000
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
+    command: npm start -- -H 0.0.0.0 -p 10000
 
   redis:
     image: redis:7-alpine
